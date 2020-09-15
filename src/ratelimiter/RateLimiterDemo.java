@@ -8,7 +8,8 @@ public class RateLimiterDemo {
     public static void main(String[] args) throws InterruptedException {
 //        fixedWindowRateLimiterDemo();
 //        slidingWindowRateLimiterDemo();
-        leakyBucketRateLimiterDemo();
+//        leakyBucketRateLimiterDemo();
+        tokenBucketRateLimiterDemo();
     }
 
     public static void fixedWindowRateLimiterDemo() throws InterruptedException {
@@ -63,5 +64,25 @@ public class RateLimiterDemo {
         System.out.println(leakyBucketRateLimiter);
         System.out.println("限流 " + leakyBucketRateLimiter.check());
         System.out.println(leakyBucketRateLimiter);
+    }
+
+    public static void tokenBucketRateLimiterDemo() throws InterruptedException {
+        TokenBucketRateLimiter tokenBucketRateLimiter = new TokenBucketRateLimiter(10, 1);
+        System.out.println(tokenBucketRateLimiter);
+        System.out.println("限流 " + tokenBucketRateLimiter.check());
+        Thread.sleep(1000);
+        System.out.println(tokenBucketRateLimiter);
+        System.out.println("不限流 " + tokenBucketRateLimiter.check());
+        for (int i = 0; i < 10; i++) {
+            System.out.println(tokenBucketRateLimiter);
+            System.out.println("限流 " + tokenBucketRateLimiter.check());
+        }
+        Thread.sleep(2100);
+        System.out.println(tokenBucketRateLimiter);
+        System.out.println("不限流 " + tokenBucketRateLimiter.check());
+        System.out.println(tokenBucketRateLimiter);
+        System.out.println("不限流 " + tokenBucketRateLimiter.check());
+        System.out.println(tokenBucketRateLimiter);
+        System.out.println("限流 " + tokenBucketRateLimiter.check());
     }
 }
